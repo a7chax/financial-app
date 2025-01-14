@@ -10,7 +10,6 @@ import { CardTransaction } from "@/Component/CardTransaction";
 export default function HomePage(){
 
     const router = useRouter()
-    const [listNote, setListNote] = useState([])
 
 
 
@@ -23,23 +22,19 @@ export default function HomePage(){
 
 
     const onDeleteNote = (id) => {
-        deleteNote(id)
+        deleteNote(id)  
         fetchNoteFromStorage()
-        setListNote(getNote)   
+        window.location.reload()
     }
 
-    useFocusEffect(
-        React.useCallback(() => {
-            fetchNoteFromStorage()
-            setListNote(getNote)                        
-        }, [])
-    );
 
-    // useEffect(() => {
-    //     fetchNoteFromStorage()
-    //     setListNote(getNote)
-    // }, [listNote])
-    
+
+    useEffect(() => {
+        fetchNoteFromStorage()
+        // window.location.reload()
+    },[])
+
+
 
     
     return (
@@ -50,18 +45,20 @@ export default function HomePage(){
                 <Button label="Add Transaction" onPress={increasePopulation}/>
             </Link>
             <FlatList
-                data={getNote}
-                keyExtractor={(item) => item.id}
-                renderItem={({item}) => (
-                    <View>
-                        <CardTransaction 
-                         onDelete={() => onDeleteNote(item.id)}
-                         onEdit={() => router.push(`/InputTransaction/${item.id}`)}
-                        {...item}/>
-                    </View>
-                )}
+            style={{marginTop : 16}}
+            data={getNote}
+            keyExtractor={(item) => item.id}
+            renderItem={({item}) => (
+                <View>
+                    <CardTransaction 
+                    onDelete={() => onDeleteNote(item.id)}
+                    onEdit={() => router.push(`/InputTransaction/${item.id}`)}
+                    {...item}/>
+                </View>
+            )}
 
-            />
+        />
+   
         </ScrollView>
     )
 }

@@ -41,6 +41,7 @@ export default function InputTransaction() {
             addNote(data)   
             alert('Success Add Transaction')
             router.push('/')
+
         }catch(e){
             console.log(e)
         }
