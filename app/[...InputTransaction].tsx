@@ -70,7 +70,9 @@ export default function InputTransaction() {
 
 
     useEffect(() => {
-        getSingleNote(transactionId)
+        if(!transactionId){
+            getSingleNote(transactionId)
+        }
         if(note){
             setIdTransaction(note.id)
             setInputTypeTransaction(note.type)
